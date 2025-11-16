@@ -1,70 +1,47 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.XR;
-using UnityEngine.XR.Management;
+using UnityEngine.InputSystem;   // NEW input system
+using TMPro;
 
 public class VRSwitch : MonoBehaviour
 {
+    public GameObject vrRig;
+    public Camera normalCamera;
+    public TMP_Text buttonLabel;
 
-    [Header("Settings")]
-    public GameObject vrPlayerPrefab;      // VR player rig
-    public GameObject nonVRPlayerPrefab;   // Non-VR player rig
+    private bool vrEnabled = false;
 
-    private GameObject currentPlayer;
-
-
-    private void Start()
+    void Start()
     {
-        // Start in non-VR mode by default
-        SwitchToVR();
+        SetVRMode(false);
     }
 
-    // Switch to VR mode
-    public void SwitchToVR()
+    void Update()
     {
-        StartCoroutine(EnableVRCoroutine());
-    }
-
-    // Switch to non-VR mode
-    public void SwitchToNonVR()
-    {
-        StartCoroutine(DisableVRCoroutine());
-    }
-
-    // Coroutine to enable XR at runtime
-    private IEnumerator EnableVRCoroutine()
-    {
-        Debug.Log("Initializing VR...");
-        XRGeneralSettings.Instance.Manager.InitializeLoader();
-
-        // Wait until loader is initialized
-        while (XRGeneralSettings.Instance.Manager.activeLoader == null)
+        // Keyboard shortcut using NEW INPUT SYSTEM
+        if (Keyboard.current != null && Keyboard.current.vKey.wasPressedThisFrame)
         {
-            yield return null;
+            ToggleVR();
         }
-
-        XRGeneralSettings.Instance.Manager.StartSubsystems();
-        Debug.Log("VR Enabled");
-
-        // Spawn VR player
-        if (currentPlayer != null) Destroy(currentPlayer);
-        if (vrPlayerPrefab != null) currentPlayer = Instantiate(vrPlayerPrefab);
     }
 
-    // Coroutine to disable XR at runtime
-    private IEnumerator DisableVRCoroutine()
+    public void ToggleVR()
     {
-        Debug.Log("Stopping VR...");
-        XRGeneralSettings.Instance.Manager.StopSubsystems();
-        XRGeneralSettings.Instance.Manager.DeinitializeLoader();
-        Debug.Log("VR Disabled");
-
-        // Spawn non-VR player
-        if (currentPlayer != null) Destroy(currentPlayer);
-        if (nonVRPlayerPrefab != null) currentPlayer = Instantiate(nonVRPlayerPrefab);
-
-        yield return null;
+        SetVRMode(!vrEnabled);
     }
 
+    public void SetVRMode(bool enableVR)
+    {
+        vrEnabled = enableVR;
+
+        vrRig.SetActive(enableVR);
+        normalCamera.gameObject.SetActive(!enableVR);
+
+        XRSettings.enabled = enableVR;
+
+        if (buttonLabel != null)
+            buttonLabel.text = enableVR ? "Exit VR" : "Enter VR";
+
+        Debug.Log("VR Mode: " + (enableVR ? "Enabled" : "Disabled"));
+    }
 }
