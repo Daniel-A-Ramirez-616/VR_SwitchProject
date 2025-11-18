@@ -6,7 +6,6 @@ using UnityEngine.UIElements;
 public class Player : MonoBehaviour
 {
     InputData input;
-    VRSwitch vrswitch;
     public int inputNumber = 0;
     public float moveSpeed = 2.0f;
     public float rotationRate = 180.0f;
@@ -55,13 +54,7 @@ public class Player : MonoBehaviour
 
         MovePlayer(input.leftStick);
         RotatePlayer(input.rightStick.x);
-        LookPlayer(input.rightStick.y * -1);
-        if(input.buttonWest == true)
-        {
-            Debug.Log("Button Pressed");
-            vrswitch.ToggleVR();
-        }
-        
+        LookPlayer(input.rightStick.y * -1);     
     }
     /// <summary>
     /// Work horse function to move the player via RigidBody

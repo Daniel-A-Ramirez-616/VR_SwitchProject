@@ -8509,6 +8509,11 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1117374924}
   m_CullTransparentMesh: 1
+--- !u!20 &1128591695 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 8139976030481868561, guid: 29141551184d3be4ba9d88a164804336, type: 3}
+  m_PrefabInstance: {fileID: 4289217768537649613}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1138640740
 GameObject:
   m_ObjectHideFlags: 0
@@ -13515,11 +13520,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1894091299}
   m_CullTransparentMesh: 1
---- !u!1 &1909993837 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 5015985664333975444, guid: 29141551184d3be4ba9d88a164804336, type: 3}
-  m_PrefabInstance: {fileID: 4289217768537649613}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1912946111
 GameObject:
   m_ObjectHideFlags: 0
@@ -14730,8 +14730,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c2dca42ba58ea124d914867b673098a6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  vrPlayerPrefab: {fileID: 2003806703}
-  nonVRPlayerPrefab: {fileID: 1909993837}
+  vrRig: {fileID: 2003806703}
+  normalCamera: {fileID: 1128591695}
+  buttonLabel: {fileID: 0}
 --- !u!1 &2064529225
 GameObject:
   m_ObjectHideFlags: 0
@@ -15527,7 +15528,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5419331889293473514, guid: 76f3439a0ae796e4b81bee3f91f888ee, type: 3}
       propertyPath: m_FirstSelectEntered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: SwitchToNonVR
+      value: ToggleVR
       objectReference: {fileID: 0}
     - target: {fileID: 5419331889293473514, guid: 76f3439a0ae796e4b81bee3f91f888ee, type: 3}
       propertyPath: m_Activated.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
@@ -17803,7 +17804,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5015985664333975444, guid: 29141551184d3be4ba9d88a164804336, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
